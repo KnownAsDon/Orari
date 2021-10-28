@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600;700&family=Roboto:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    background-color: #E5E5E5;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#top-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 89%;
+    margin: 20px 0 10px 0;
+    background: linear-gradient(135deg, rgba(162,0,33,1) 0%, rgba(8,116,112,1) 60%, rgba(14,174,57,1) 100%); 
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px rgba(0,0,0,.16);
+}
+
+#top-card-header {
+    padding: 20px 0 25px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#top-card-course {
+    font-size: 25px;
+}
+
+#top-card-professor {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+#top-card-location {
+    font-size: 12px;
+    padding: 0 0 20px 0;
+}
+
+#top-card-location span {
+    font-family: 'Roboto', sans-serif;
+}
+
+#top-card-time {
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff;
+    width: 89%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px rgba(0,0,0,.16);
+    margin: 0 0 20px 0;
+}
+
+#top-card-time-header {
+    font-size: 15px;
+    color: #A20021;
+    padding: 7px 0;
+}
+
+#schedule-list {
+    background-color: #fff;
+    width: 89%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px rgba(0,0,0,.16);
+    color: #B8B8B8;
+    padding: 30px 0 15px 0;
+    margin: 40px 0 10px 0;
+}
+
+.schedule-list-item {
+    display: flex;
+    flex-direction: row;
+}
+
+.schedule-list-item-hour {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    width: 33%;
+    text-align: right;
+}
+
+.schedule-list-item-data {
+    margin: 0 0 20px 15px;
+}
+
+.schedule-list-item-course {
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.schedule-list-item-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.schedule-list-item-info h1 {
+    font-size: 8px;
+    padding: 0 5px 0 0;
+}
+
+.schedule-list-item-location span {
+    font-family: 'Roboto', sans-serif;
+}
+
+.schedule-list-primary-focused {
+    color: #A20021;
+}
+
+.schedule-list-secondary-focused {
+    color: #646464;
+}
+
+#footer {
+    background-color: #fff;
+    width: 89%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px rgba(0,0,0,.16);
+    margin: 0 0 20px 0;
+}
+
+#footer-header {
+    font-size: 7px;
+    color: #646464;
+    padding: 11px 0;
+}
+
+#footer span {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
+
+
+
+
+
+
+@media only screen and (min-width: 600px) {
+    #top-card-course {
+        font-size: 30px;
+    }
+    
+    #top-card-professor {
+        font-size: 15px;
+    }
+    
+    #top-card-location {
+        font-size: 15px;
+    }
+
+    #top-card-time-header {
+        font-size: 17px;
+    }
+
+    #schedule-list {
+        align-items: center;
+        padding: 50px 0 15px 0;
+    }
+    
+    .schedule-list-item {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .schedule-list-item-hour {
+        width: auto;
+        font-size: 22px;
+    }
+    
+    .schedule-list-item-data {
+        margin: 0 0 35px 25px;
+    }
+    
+    .schedule-list-item-course {
+        font-size: 22px;
+        margin-bottom: 3px;
+    }
+    
+    .schedule-list-item-info {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .schedule-list-item-info h1 {
+        font-size: 10px;
+        padding: 0 10px 0 0;
+    }
+
+    #footer-header {
+        font-size: 10px;
+    }
+}
