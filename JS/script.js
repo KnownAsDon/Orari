@@ -1,8 +1,8 @@
 import schedule from '../data/schedule.js';
 
-const todaySchedule = [];
+const todaySchedule = new Array();
 let weekdays;
-let coursesNow = [];
+let coursesNow = new Array();
 let nextCourse = new Array(1).fill(0);
 let differentDay = false;
 
