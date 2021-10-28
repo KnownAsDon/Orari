@@ -31,7 +31,7 @@ body {
 }
 
 #top-card-header {
-    padding: 20px 0 25px 0;
+    padding: 50px 0 25px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,17 +39,18 @@ body {
 
 #top-card-course {
     font-size: 25px;
+    margin-bottom: 1px;
 }
 
 #top-card-professor {
     font-size: 12px;
     font-weight: 600;
-    margin-bottom: 3px;
+    margin-bottom: 23px;
 }
 
 #top-card-location {
     font-size: 12px;
-    padding: 0 0 20px 0;
+    padding: 0 0 30px 0;
 }
 
 #top-card-location span {

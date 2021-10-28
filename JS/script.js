@@ -77,26 +77,37 @@ function checkCourseNext(firstCourse, secondCourse, hour) {
 
 for (let i = 0; i < todaySchedule.length; i++) {
     let startTime = parseInt(todaySchedule[i]['startTime'].slice(0, 2));
-    if (startTime == hourNow && differentDay == false) {
-        coursesNow.push(i);
-        nextCourse[0] = i + 1;
+
+    if (differentDay == false){
+        if (startTime == hourNow) {
+            coursesNow.push(i);
+            nextCourse[0] = i + 1;
 
 
-        if (i + 1 < todaySchedule.length && checkCourseNext(i, i + 1, startTime + 1)) {
-                coursesNow.push(i + 1);
-                nextCourse[0]++;
+            if (i + 1 < todaySchedule.length && checkCourseNext(i, i + 1, startTime + 1)) {
+                    coursesNow.push(i + 1);
+                    nextCourse[0]++;
+            }
+
+            if (i != 0 && checkCourseNext(i, i - 1, startTime - 1)) {
+                coursesNow.push(i - 1)
+            }
+
+            if (nextCourse[0] + 1 < todaySchedule.length && checkCourseNext(nextCourse[0], nextCourse[0] + 1, parseInt(todaySchedule[nextCourse[0]]['startTime'].slice(0, 2)) + 1)) {
+                nextCourse.push(nextCourse[0] + 1);
+            }
+
+            break;
+        } else if (startTime > hourNow) {
+            nextCourse[0] = i;
+
+            if (nextCourse[0] + 1 < todaySchedule.length && checkCourseNext(nextCourse[0], nextCourse[0] + 1, parseInt(todaySchedule[nextCourse[0]]['startTime'].slice(0, 2)) + 1)) {
+                nextCourse.push(nextCourse[0] + 1);
+            }
+
+            break;
         }
-
-        if (i != 0 && checkCourseNext(i, i - 1, startTime - 1)) {
-            coursesNow.push(i - 1)
-        }
-
-        if (nextCourse[0] + 1 < todaySchedule.length && checkCourseNext(nextCourse[0], nextCourse[0] + 1, parseInt(todaySchedule[nextCourse[0]]['startTime'].slice(0, 2)) + 1)) {
-            nextCourse.push(nextCourse[0] + 1);
-        }
-
-        break;
-    } else if (differentDay == true) {
+    } else {
         if (nextCourse[0] + 1 < todaySchedule.length && checkCourseNext(nextCourse[0], nextCourse[0] + 1, parseInt(todaySchedule[nextCourse[0]]['startTime'].slice(0, 2)) + 1)) {
             nextCourse.push(nextCourse[0] + 1);
         }
@@ -150,14 +161,18 @@ for (let i = 0; i < todaySchedule.length; i++) {
 
 // Update top card
 
-let courseNow = 0;
+let courseNow = new Array(1).fill(0);
 
 for (let i = 0; i < todaySchedule.length; i++) {
     let startTime = parseInt(todaySchedule[i]['startTime'].slice(0, 2));
     let endTime = parseInt(todaySchedule[i]['endTime'].slice(0, 2));
     
-    if (hourNow >= startTime && hourNow < endTime && differentDay == false) {
-        courseNow = i;
+    if ((hourNow >= startTime && hourNow < endTime && differentDay == false ) || startTime > hourNow) {
+        courseNow[0] = i;
+
+        if (courseNow[0] + 1 < todaySchedule.length && checkCourseNext(courseNow[0], courseNow[0] + 1, parseInt(todaySchedule[courseNow[0]]['startTime'].slice(0, 2)) + 1)) {
+            courseNow.push(courseNow[0] + 1);
+        }
         break;
     }
 }
@@ -165,17 +180,30 @@ for (let i = 0; i < todaySchedule.length; i++) {
 const mainDiv = document.getElementById('main');
 
 for (const item in schedule) {
-    const course = schedule[item][weekdays[day - 1]][courseNow];
+    const course = todaySchedule[courseNow[0]];
     let topCardElm = `<div id="top-card">
                         <div id="top-card-header">
                             <h1 id="top-card-course">${ course['course'] }</h1>
                             <h1 id="top-card-professor">${ course['professor'] }</h1>
-                        </div>
-                        <h1 id="top-card-location"><span>${ course['location'].slice(0, course['location'].length - 1) }</span>${ course['location'].substr(-1) }</h1>
-                        </div>
-                        <div id="top-card-time">
-                            <h1 id="top-card-time-header">${ course['startTime'].slice(0, 2)}:${ course['startTime'].slice(2, 4) } - ${ course['endTime'].slice(0, 2)}:${ course['endTime'].slice(2, 4) }</h1>
-                        </div>`;
+                        </div>`
+    
+    if (courseNow.length == 1 || todaySchedule[courseNow[0]]['location'] == todaySchedule[courseNow[1]]['location']) {
+        topCardElm += `<h1 id="top-card-location"><span>${ course['location'].slice(0, course['location'].length - 1) }</span>${ course['location'].substr(-1) }</h1>`
+    } else {
+        topCardElm += `<h1 id="top-card-location"><span>${ todaySchedule[courseNow[0]]['location'].slice(0, todaySchedule[courseNow[0]]['location'].length - 1) }</span>${ todaySchedule[courseNow[0]]['location'].substr(-1) } /
+        <span>${ todaySchedule[courseNow[1]]['location'].slice(0, todaySchedule[courseNow[1]]['location'].length - 1) }</span>${ todaySchedule[courseNow[1]]['location'].substr(-1) }</h1>`;
+    }
+
+    topCardElm += `     </div>
+                        <div id="top-card-time">`
+
+    if (courseNow.length == 1) {
+        topCardElm += `          <h1 id="top-card-time-header">${ course['startTime'].slice(0, 2)}:${ course['startTime'].slice(2, 4) } - ${ course['endTime'].slice(0, 2)}:${ course['endTime'].slice(2, 4) }</h1>`;
+    } else {
+        topCardElm += `          <h1 id="top-card-time-header">${  todaySchedule[courseNow[0]]['startTime'].slice(0, 2)}:${ todaySchedule[courseNow[0]]['startTime'].slice(2, 4) } - ${ todaySchedule[courseNow[1]]['endTime'].slice(0, 2)}:${ todaySchedule[courseNow[1]]['endTime'].slice(2, 4) }</h1>`;
+    }
+    
+    topCardElm += `        </div>`;
 
     mainDiv.insertAdjacentHTML('afterbegin', topCardElm);
 }
