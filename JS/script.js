@@ -1,11 +1,12 @@
 import schedule from '../data/schedule.js';
 
 const todaySchedule = new Array();
-let weekdays;
+
 let coursesNow = new Array();
 let nextCourse = new Array(1).fill(0);
-let differentDay = false;
 
+let weekdays;
+let differentDay = false;
 let day = new Date().getDay();
 
 
@@ -15,7 +16,7 @@ for (const item in schedule) {
     weekdays = Object.keys(schedule[item]);
     let todayData;
 
-    while(1) {
+    while (true) {
         if (day < 6) {
             todayData = schedule[item][weekdays[day - 1]];
         } else {
@@ -26,9 +27,7 @@ for (const item in schedule) {
         if (Object.keys(todayData).length == 1) {
             differentDay = true;
             day++;
-        } else {
-            break;
-        }
+        } else break;
     }
     
     // Arrange data
@@ -200,7 +199,8 @@ for (const item in schedule) {
     if (courseNow.length == 1) {
         topCardElm += `          <h1 id="top-card-time-header">${ course['startTime'].slice(0, 2)}:${ course['startTime'].slice(2, 4) } - ${ course['endTime'].slice(0, 2)}:${ course['endTime'].slice(2, 4) }</h1>`;
     } else {
-        topCardElm += `          <h1 id="top-card-time-header">${  todaySchedule[courseNow[0]]['startTime'].slice(0, 2)}:${ todaySchedule[courseNow[0]]['startTime'].slice(2, 4) } - ${ todaySchedule[courseNow[1]]['endTime'].slice(0, 2)}:${ todaySchedule[courseNow[1]]['endTime'].slice(2, 4) }</h1>`;
+        topCardElm += `          <h1 id="top-card-time-header">${  todaySchedule[courseNow[0]]['startTime'].slice(0, 2)}:${ todaySchedule[courseNow[0]]['startTime'].slice(2, 4) } -
+        ${ todaySchedule[courseNow[1]]['endTime'].slice(0, 2)}:${ todaySchedule[courseNow[1]]['endTime'].slice(2, 4) }</h1>`;
     }
     
     topCardElm += `        </div>`;
